@@ -25,6 +25,9 @@ class Bip75Service {
 
     fun parseInvoiceRequest(invoiceRequestBinary: ByteArray) = tid.parseInvoiceRequest(invoiceRequestBinary)
 
+    fun parseInvoiceRequestWithAddressesInfo(invoiceRequestBinary: ByteArray) =
+        tid.parseInvoiceRequestWithAddressesInfo(invoiceRequestBinary)
+
     fun createPaymentRequest(paymentRequestPayload: PaymentRequestPayload) = tid.createPaymentRequest(
         paymentRequestPayload.paymentRequestParameters,
         paymentRequestPayload.ownersParameters,
@@ -36,6 +39,9 @@ class Bip75Service {
     fun isPaymentRequestValid(paymentRequestBinary: ByteArray) = tid.isPaymentRequestValid(paymentRequestBinary)
 
     fun parsePaymentRequest(paymentRequestBinary: ByteArray) = tid.parsePaymentRequest(paymentRequestBinary)
+
+    fun parsePaymentRequestWithAddressesInfo(paymentRequestBinary: ByteArray) =
+        tid.parsePaymentRequestWithAddressesInfo(paymentRequestBinary)
 
     fun createPayment(paymentPayload: PaymentPayload) = tid.createPayment(
         paymentPayload.paymentParameters,
