@@ -14,7 +14,7 @@ application {
 }
 
 group = "com.netki"
-version = "0.0.1-SNAPSHOT"
+version = "1.0.0"
 java.sourceCompatibility = JavaVersion.VERSION_11
 
 repositories {
