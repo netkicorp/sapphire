@@ -22,6 +22,9 @@ class SapphireApplication {
     @Value("\${transact-id.key-management.provider.authorization-key}")
     private lateinit var keyManagementAuthorizationKey: String
 
+    @Value("\${transact-id.key-management.provider.url}")
+    private lateinit var keyManagementUrl: String
+
     @Value("\${transact-id.key-management.storage.authorization-key}")
     private lateinit var keyManagementStorageAuthorizationKey: String
 
@@ -38,7 +41,8 @@ class SapphireApplication {
     fun getTidKms() = TidKms.getInstance(
         keyManagementAuthorizationKey,
         keyManagementStorageAuthorizationKey,
-        keyManagementStorageAddress
+        keyManagementStorageAddress,
+        keyManagementUrl
     )
 }
 

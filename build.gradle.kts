@@ -24,7 +24,7 @@ repositories {
 }
 
 dependencies {
-    implementation("com.netki:transactid:0.1.0-alpha11")
+    implementation("com.netki:transactid:0.1.0-alpha12")
 
     implementation("org.springframework.boot:spring-boot-starter-jersey")
     implementation("org.springframework.boot:spring-boot-starter-web")
