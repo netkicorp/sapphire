@@ -14,6 +14,8 @@ CERTIFICATE_PROVIDER_AUTHORIZATION_KEY - key provided by Netki to generate certi
 STORAGE_AUTHORIZATION_KEY - If you are using vault to store the keys, this is the key to use your Vault instance (Optional)
 
 STORAGE_ADDRESS - If you are using vault to store the keys, this is the address of your Vault instance (Optional)
+
+CERTIFICATE_PROVIDER_URL - Change this if you want to point to different Certificate provider, ** This is recommended to do not change ** (Optional and not recommended)
 ```
 
 Example:
