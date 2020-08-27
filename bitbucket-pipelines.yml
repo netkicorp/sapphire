@@ -1,0 +1,99 @@
+image: crungruang/bionic:python3.6
+
+pipelines:
+  default:
+    - step:
+        script:
+          - echo "This script runs on all branches that don't have any specific pipeline assigned in 'branches'."
+  branches:
+    development:
+      - step:
+          name: DEV Push
+          script:
+            - apt-get update
+            - apt-get install -y zip
+            - zip -r sapphire-dev.zip .
+            - pipe: atlassian/aws-code-deploy:0.3.2
+              variables:
+                AWS_DEFAULT_REGION: $AWS_REGION
+                AWS_ACCESS_KEY_ID: $AWS_ACCESS_KEY_ID
+                AWS_SECRET_ACCESS_KEY: $AWS_SECRET_ACCESS_KEY
+                APPLICATION_NAME: $DEV_DEPLOYMENT_GROUP
+                S3_BUCKET: $S3_BUCKET
+                COMMAND: 'upload'
+                ZIP_FILE: 'sapphire-dev.zip'
+                VERSION_LABEL: 'sapphire-dev-1.0.0'
+            - pipe: atlassian/aws-code-deploy:0.3.2
+              variables:
+                AWS_DEFAULT_REGION: $AWS_REGION
+                AWS_ACCESS_KEY_ID: $AWS_ACCESS_KEY_ID
+                AWS_SECRET_ACCESS_KEY: $AWS_SECRET_ACCESS_KEY
+                APPLICATION_NAME: $DEV_DEPLOYMENT_GROUP
+                DEPLOYMENT_GROUP: $DEV_DEPLOYMENT_GROUP
+                S3_BUCKET: $S3_BUCKET
+                COMMAND: 'deploy'
+                WAIT: 'true'
+                VERSION_LABEL: 'sapphire-dev-1.0.0'
+                IGNORE_APPLICATION_STOP_FAILURES: 'true'
+                FILE_EXISTS_BEHAVIOR: 'OVERWRITE'
+    ## Not needed for now
+    # qa:
+    #   - step:
+    #       name: QA Push
+    #       script:
+    #         - apt-get update
+    #         - apt-get install -y zip
+    #         - zip -r sapphire-qa.zip .
+    #         - pipe: atlassian/aws-code-deploy:0.3.2
+    #           variables:
+    #             AWS_DEFAULT_REGION: $AWS_REGION
+    #             AWS_ACCESS_KEY_ID: $AWS_ACCESS_KEY_ID
+    #             AWS_SECRET_ACCESS_KEY: $AWS_SECRET_ACCESS_KEY
+    #             APPLICATION_NAME: $QA_DEPLOYMENT_GROUP
+    #             S3_BUCKET: $S3_BUCKET
+    #             COMMAND: 'upload'
+    #             ZIP_FILE: 'sapphire-qa.zip'
+    #             VERSION_LABEL: 'sapphire-qa-1.0.0'
+    #         - pipe: atlassian/aws-code-deploy:0.3.2
+    #           variables:
+    #             AWS_DEFAULT_REGION: $AWS_REGION
+    #             AWS_ACCESS_KEY_ID: $AWS_ACCESS_KEY_ID
+    #             AWS_SECRET_ACCESS_KEY: $AWS_SECRET_ACCESS_KEY
+    #             APPLICATION_NAME: $QA_DEPLOYMENT_GROUP
+    #             DEPLOYMENT_GROUP: $QA_DEPLOYMENT_GROUP
+    #             S3_BUCKET: $S3_BUCKET
+    #             COMMAND: 'deploy'
+    #             WAIT: 'true'
+    #             VERSION_LABEL: 'sapphire-qa-1.0.0'
+    #             IGNORE_APPLICATION_STOP_FAILURES: 'true'
+    #             FILE_EXISTS_BEHAVIOR: 'OVERWRITE'
+    master:
+      - step:
+          name: PROD Push
+          script:
+            - apt-get update
+            - apt-get install -y zip
+            - zip -r sapphire-master.zip .
+            - pipe: atlassian/aws-code-deploy:0.3.2
+              variables:
+                AWS_DEFAULT_REGION: $AWS_REGION
+                AWS_ACCESS_KEY_ID: $AWS_ACCESS_KEY_ID
+                AWS_SECRET_ACCESS_KEY: $AWS_SECRET_ACCESS_KEY
+                APPLICATION_NAME: $PROD_DEPLOYMENT_GROUP
+                S3_BUCKET: $S3_BUCKET
+                COMMAND: 'upload'
+                ZIP_FILE: 'sapphire-master.zip'
+                VERSION_LABEL: 'sapphire-master-1.0.0'
+            - pipe: atlassian/aws-code-deploy:0.3.2
+              variables:
+                AWS_DEFAULT_REGION: $AWS_REGION
+                AWS_ACCESS_KEY_ID: $AWS_ACCESS_KEY_ID
+                AWS_SECRET_ACCESS_KEY: $AWS_SECRET_ACCESS_KEY
+                APPLICATION_NAME: $PROD_DEPLOYMENT_GROUP
+                DEPLOYMENT_GROUP: $PROD_DEPLOYMENT_GROUP
+                S3_BUCKET: netki-deploy
+                COMMAND: 'deploy'
+                WAIT: 'true'
+                VERSION_LABEL: 'sapphire-master-1.0.0'
+                IGNORE_APPLICATION_STOP_FAILURES: 'true'
+                FILE_EXISTS_BEHAVIOR: 'OVERWRITE'
