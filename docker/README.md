@@ -1,4 +1,4 @@
-## TransactID Quickstart with Vault
+## TransactID Sapphire Quickstart with Vault
 
 
 We provide a very basic vault setup using a filesystem backend for storage.
@@ -15,7 +15,7 @@ Vault offers other storage backends that provide increased functionality: https:
 Please set the following environment variable in your shell before running the steps outlined below:
 
 - APP_INSTALL - The location you have installed our app.
-_example: `export APP_INSTALL=~/projects/transactid-library-java`_
+_example: `export APP_INSTALL=/opt/app/sapphire`_
 
 ### Build and launch Vault container
 `docker-compose up -d --build`
