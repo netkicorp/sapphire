@@ -18,7 +18,8 @@ class Bip75Service {
         invoiceRequestPayload.invoiceRequestParameters,
         invoiceRequestPayload.ownersParameters,
         invoiceRequestPayload.senderParameters,
-        invoiceRequestPayload.attestationsRequested
+        invoiceRequestPayload.attestationsRequested,
+        invoiceRequestPayload.recipientParameters
     )
 
     fun isInvoiceRequestValid(invoiceRequestBinary: ByteArray) = tid.isInvoiceRequestValid(invoiceRequestBinary)
