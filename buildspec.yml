@@ -10,7 +10,7 @@ phases:
   build:
     commands:
       - cd ..
-      - tar -czf sapphire.tar.gz --exclude='build/' --exclude='helm*' --exclude='keys*' --exclude='certs*' --exclude='docker*' --exclude='scripts*' --exclude='*.yml' --exclude='.git*' --exclude='*.go' src
+      - tar -czf sapphire.tar.gz --exclude='build/' --exclude='helm*' --exclude='keys*' --exclude='certs*' --exclude='docker*' --exclude='scripts*' --exclude='*.yml' --exclude='.git*' --exclude='*.go' src/.
       - mv sapphire.tar.gz src/
       - cd src
       - tar -tvf sapphire.tar.gz
