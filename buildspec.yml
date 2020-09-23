@@ -11,20 +11,10 @@ phases:
   #   commands:      
   build:
     commands:
-      - ls -al
-      - pwd
-      - cd ..
-      - pwd
-      - ls -al
-      - cd src
-      - ls -al 
-      # - tar -czf sapphire.tar.gz --exclude='build/' --exclude='helm*' --exclude='keys*' --exclude='certs*' --exclude='docker*' --exclude='scripts*' --exclude='*.yml' --exclude='.git*' --exclude='*.go' sapphire .
-      # - mv sapphire.tar.gz sapphire/
-      # - cd sapphire
-      # - "cat sapphire.tar.gz | docker build . -f docker/sapphire/Dockerfile -t netkicorporate/sapphire:latest"
-      # - docker push $IMAGE_REPO_NAME:latest
-  post_build:
-    commands:
+      - tar -czf sapphire.tar.gz --exclude='build/' --exclude='helm*' --exclude='keys*' --exclude='certs*' --exclude='docker*' --exclude='scripts*' --exclude='*.yml' --exclude='.git*' --exclude='*.go' sapphire .
+      - mv sapphire.tar.gz sapphire/
+      - cd sapphire
+      - "cat sapphire.tar.gz | docker build . -f docker/sapphire/Dockerfile -t netkicorporate/sapphire:latest"
       - export DOCKER_USERNAME=$DOCKER_USERNAME_PARAM
       - export DOCKER_PASSWORD=$DOCKER_PASSWORD_PARAM
       - echo $DOCKER_USERNAME
