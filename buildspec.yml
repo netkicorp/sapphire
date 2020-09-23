@@ -21,5 +21,7 @@ phases:
     commands:
       - export DOCKER_USERNAME=$DOCKER_USERNAME_PARAM
       - export DOCKER_PASSWORD=$DOCKER_PASSWORD_PARAM
+      - echo $DOCKER_USERNAME
+      - echo $DOCKER_PASSWORD
       - docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
       - docker push $IMAGE_REPO_NAME:latest
