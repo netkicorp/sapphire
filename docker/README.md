@@ -12,7 +12,7 @@ This application is avaialble via DockerHub at: https://hub.docker.com/r/netkico
 
 ### Navigation
 
-```
+```#!/bin/bash
 ├── docker-compose.yaml
 ├── README.md
 ├── sapphire

@@ -60,7 +60,8 @@ CERTIFICATE_PROVIDER_URL - Change this if you want to point to different Certifi
 ```
 
 ### Example
-In `$bash` to set the`CERTIFICATE_PROVIDER_AUTHORIZATION_KEY` in your bash profile:
+
+In `bash` shell, to set the`CERTIFICATE_PROVIDER_AUTHORIZATION_KEY` in your bash profile:
 
 Open the bash file to edit with
 
