@@ -11,7 +11,9 @@ phases:
   #   commands:      
   build:
     commands:
+      - pwd
       - cd ..
+      - pwd
       - tar -czf sapphire.tar.gz --exclude='build/' --exclude='helm*' --exclude='keys*' --exclude='certs*' --exclude='docker*' --exclude='scripts*' --exclude='*.yml' --exclude='.git*' --exclude='*.go' -C sapphire .
       - mv sapphire.tar.gz sapphire/ 
       - "cat sapphire.tar.gz | docker build . -f docker/sapphire/Dockerfile -t netkicorporate/sapphire:latest"
