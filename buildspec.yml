@@ -6,16 +6,14 @@ env:
 phases:
   install:
     commands:
-      - apt install -y git tar
-  # pre_build:
-  #   commands:      
+      - apt install -y git tar    
   build:
     commands:
       - cd ..
       - tar -czf sapphire.tar.gz --exclude='build/' --exclude='helm*' --exclude='keys*' --exclude='certs*' --exclude='docker*' --exclude='scripts*' --exclude='*.yml' --exclude='.git*' --exclude='*.go' src
       - mv sapphire.tar.gz src/
-      - tar -tvf sapphire.tar.gz
       - cd src
+      - tar -tvf sapphire.tar.gz
       - "cat sapphire.tar.gz | docker build . -f docker/sapphire/Dockerfile -t netkicorporate/sapphire:latest"
       - export DOCKER_USERNAME=$DOCKER_USERNAME_PARAM
       - export DOCKER_PASSWORD=$DOCKER_PASSWORD_PARAM
