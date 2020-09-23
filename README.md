@@ -1,9 +1,50 @@
-## Configuring project
+# Setup
 
-To be able to run this project properly, you need to define some system environment variables in the machine that is running this project.
+## Standard Setup (Recommended)
 
-The variables to set are:
+There is an install helper at the project root.
+
+```#!/bin/bash
+./setup
 ```
+
+You will be prompted to enter details to set runtime configuration and guided through various setup methods we have available.
+
+---
+
+## Advanced without Docker
+
+To run project directly, _configure the required environment variables_ and then execute the following command in the root folder:
+
+
+```script
+./gradlew bootRun
+```
+
+---
+
+## Advanced with Docker
+
+To run this project with Docker, _configure the required environment variables_ and then run `docker-compose up -d` in the desired directory.
+
+see docker/README.md for details
+
+---
+
+## Advanced with Helm for Kubernetes
+
+For Kubernetes, a Helm Chart is included in the helm folder.
+_Configure the environment variables_ below
+
+see helm/README.md for details
+
+---
+
+## Environment Variables (Advanced)
+
+```#!/bin/bash
+INSTALLDIR - this  is the location the application is installed
+
 TRUSTSTORE_LOCATION - this is the path to the certificate trustore, the project includes one in src/main/resources/certificates 
  so you can set the abosulte path of that folder in this variable. (Mandatory)
 
@@ -18,39 +59,40 @@ STORAGE_ADDRESS - If you are using vault to store the keys, this is the address 
 CERTIFICATE_PROVIDER_URL - Change this if you want to point to different Certificate provider, ** This is recommended to do not change ** (Optional and not recommended)
 ```
 
-Example:
-For `MacOS` to set the`CERTIFICATE_PROVIDER_AUTHORIZATION_KEY` 
+### Example
+In `$bash` to set the`CERTIFICATE_PROVIDER_AUTHORIZATION_KEY` in your bash profile:
 
 Open the bash file to edit with
+
 ```script
 vi ~/.bash_profile
 ```
 
 Add the variable
+
 ```script
 export CERTIFICATE_PROVIDER_AUTHORIZATION_KEY=0000111112222223333333
 ```
 
 Reload the bash file
+
 ```script
-source ~/.bash_profile 
+source ~/.bash_profile
 ```
 
 To validate it was exported correctly you can check with
+
 ```script
 echo $CERTIFICATE_PROVIDER_AUTHORIZATION_KEY
 ```
+
 Note:
 If you are using IntelliJ or Eclipse make sure to restart your IDE after you set the variables.
 
-## Run project
-To run project execute the following command in the root folder
+---
 
-```script
-./gradlew bootRun
-```
+### Checking status
 
-## Checking status
 To check the status of the service, you can use the url
 
 ```url

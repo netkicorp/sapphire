@@ -8,12 +8,6 @@ services:
     volumes:
       - "$INSTALLDIR/keys:/keys"
       - "$INSTALLDIR/certs:/certs"
-    build: ./vault
+    build: ./
     ports:
       - "8200:8200/tcp"
-  sapphire:
-    tty: yes
-    container_name: sapphire
-    build: ./sapphire
-    ports:
-      - "8080:8080/tcp"

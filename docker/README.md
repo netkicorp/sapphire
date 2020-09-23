@@ -1,36 +1,86 @@
-## TransactID Sapphire Quickstart with Vault
+# Docker TransactID Sapphire Quickstart with Vault
 
-
-We provide a very basic vault setup using a filesystem backend for storage.
-Vault offers other storage backends that provide increased functionality: https://www.vaultproject.io/docs/configuration/storage
-
-### Requirements:
+## Requirements
 
 - docker-compose v2
 
 - docker >18
 
-### Environment Variables:
+This application is avaialble via DockerHub at: https://hub.docker.com/r/netkicorporate/sapphire
 
-Please set the following environment variable in your shell before running the steps outlined below:
+## Setup
 
-- APP_INSTALL - The location you have installed our app.
-_example: `export APP_INSTALL=/opt/app/sapphire`_
+### Navigation
 
-### Build and launch Vault container
-`docker-compose up -d --build`
+```
+├── docker-compose.yaml
+├── README.md
+├── sapphire
+│   ├── build.sh
+│   ├── docker-compose.yaml
+│   └── Dockerfile
+└── vault
+    ├── config
+    │   ├── config.hcl
+    │   └── policy.hcl
+    ├── docker-compose.yaml
+    └── Dockerfile
+```
 
-## Update bind mount permissions
-`docker exec -d vault chown vault.vault keys/`
+### Standard Setup
 
-## Initialize Vault (First-time setup)
-`docker exec -it vault vault operator init`
+There is an install helper at the project root.
 
-_Please save your unseal keys, as there is no way to recover these._
+```#!/bin/bash
+cd ..
+./setup
+```
 
-## Done!
+You will be prompted to enter details to set runtime configuration.
 
 ---
 
+### Advanced
+
+There are 3 docker-compose files, depending on your needs:
+
+1. docker-compose.yaml - launches sapphire with vault
+
+2. sapphire/docker-compose.yaml - sapphire only
+
+3. vault/docker-compose.yaml - vault only
+
+You will have to set the following environment variables using this approach:
+
+```#!/bin/bash
+INSTALLDIR - this  is the location the application is installed
+
+TRUSTSTORE_LOCATION - this is the path to the certificate trustore, the project includes one in src/main/resources/certificates 
+ so you can set the abosulte path of that folder in this variable. (Mandatory)
+
+MERKLE_KEY - key provided by Merkle to access address information. (Optional)
+
+CERTIFICATE_PROVIDER_AUTHORIZATION_KEY - key provided by Netki to generate certificates. (Mandatory)
+
+STORAGE_AUTHORIZATION_KEY - If you are using vault to store the keys, this is the key to use your Vault instance (Optional)
+
+STORAGE_ADDRESS - If you are using vault to store the keys, this is the address of your Vault instance (Optional)
+
+CERTIFICATE_PROVIDER_URL - Change this if you want to point to different Certificate provider, ** This is recommended to do not change ** (Optional and not recommended)
+```
+
+---
+
+### Initializing Vault (optional)
+
+We also include a very basic vault setup using a filesystem backend for storage.
+Vault offers other storage backends that provide increased functionality and security: https://www.vaultproject.io/docs/configuration/storage
+
+### Please save your unseal keys, as there is no way to recover this information
+
+---
 ## Garbage Collection
-`docker-compose stop && docker-compose rm -f`
+
+`
+docker-compose stop && docker-compose rm -f
+`
