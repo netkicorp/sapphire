@@ -3,13 +3,17 @@ phases:
   install:
     commands:
       - apt install -y git tar
-  # pre_build:
-  #   commands:
-  #     - "mkdir ~/.kube/"
-  #     - "cp kubeconfig-$ENV ~/.kube/config"
+  pre_build:
+    commands:
+      - cd ..
+      - tar -czf sapphire.tar.gz --exclude='build/' --exclude='helm*' --exclude='keys*' --exclude='certs*' --exclude='docker*' --exclude='scripts*' --exclude='*.yml' --exclude='.git*' --exclude='*.go' -C sapphire .
+      - mv sapphire.tar.gz sapphire/
+  artifacts:
+    files:
+      - '/sapphire.tar.gz'
+    base-directory: 'sapphire'  
   build:
     commands:
-      - tar czf sapphire.tar.gz --exclude='build/' --exclude='helm' --exclude='docker*' --exclude='scripts/' --exclude='*.yml' --exclude='.git*' --exclude='*.go' .
       - "cat sapphire.tar.gz | docker build . -f docker/sapphire/Dockerfile -t netkicorporate/sapphire:latest"
       - docker push $IMAGE_REPO_NAME:latest
   post_build:
