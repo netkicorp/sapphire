@@ -7,5 +7,6 @@ data class InvoiceRequestPayload(
     val ownersParameters: List<OwnerParameters>,
     val senderParameters: SenderParameters,
     val attestationsRequested: List<Attestation>,
-    val recipientParameters: RecipientParameters?
+    val recipientParameters: RecipientParameters?,
+    val messageInformation: MessageInformation = MessageInformation()
 )

@@ -19,7 +19,8 @@ class Bip75Service {
         invoiceRequestPayload.ownersParameters,
         invoiceRequestPayload.senderParameters,
         invoiceRequestPayload.attestationsRequested,
-        invoiceRequestPayload.recipientParameters
+        invoiceRequestPayload.recipientParameters,
+        invoiceRequestPayload.messageInformation
     )
 
     fun isInvoiceRequestValid(invoiceRequestBinary: ByteArray) = tid.isInvoiceRequestValid(invoiceRequestBinary)
@@ -34,7 +35,8 @@ class Bip75Service {
         paymentRequestPayload.ownersParameters,
         paymentRequestPayload.senderParameters,
         paymentRequestPayload.attestationsRequested,
-        paymentRequestPayload.paymentRequestParametersVersion
+        paymentRequestPayload.paymentRequestParametersVersion,
+        paymentRequestPayload.messageInformation
     )
 
     fun isPaymentRequestValid(paymentRequestBinary: ByteArray) = tid.isPaymentRequestValid(paymentRequestBinary)
@@ -46,7 +48,8 @@ class Bip75Service {
 
     fun createPayment(paymentPayload: PaymentPayload) = tid.createPayment(
         paymentPayload.paymentParameters,
-        paymentPayload.ownersParameters
+        paymentPayload.ownersParameters,
+        paymentPayload.messageInformation
     )
 
     fun isPaymentValid(paymentBinary: ByteArray) = tid.isPaymentValid(paymentBinary)
@@ -55,7 +58,8 @@ class Bip75Service {
 
     fun createPaymentAck(paymentAckPayload: PaymentAckPayload) = tid.createPaymentAck(
         paymentAckPayload.payment,
-        paymentAckPayload.memo
+        paymentAckPayload.memo,
+        paymentAckPayload.messageInformation
     )
 
     fun isPaymentAckValid(paymentAckBinary: ByteArray) = tid.isPaymentAckValid(paymentAckBinary)
