@@ -14,5 +14,6 @@ enum class ServiceErrorType {
     KEY_MANAGEMENT_FETCH,
     KEY_MANAGEMENT_STORE,
     OBJECT_NOT_FOUND,
+    INVALID_DATA,
     UNKNOWN
 }

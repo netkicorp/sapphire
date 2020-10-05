@@ -5,8 +5,11 @@ import com.netki.sapphire.model.ServiceError
 import com.netki.sapphire.model.ServiceErrorType
 import org.springframework.core.Ordered
 import org.springframework.core.annotation.Order
+import org.springframework.http.HttpHeaders
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
+import org.springframework.http.converter.HttpMessageNotReadableException
+import org.springframework.web.bind.MissingRequestHeaderException
 import org.springframework.web.bind.annotation.ControllerAdvice
 import org.springframework.web.bind.annotation.ExceptionHandler
 import org.springframework.web.context.request.WebRequest
@@ -17,7 +20,10 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 class ResponseExceptionHandler : ResponseEntityExceptionHandler() {
 
     @ExceptionHandler(Exception::class)
-    fun handleProviderErrorsError(exception: Exception, request: WebRequest): ResponseEntity<ServiceError> {
+    fun handleProviderErrorsError(
+        exception: Exception,
+        request: WebRequest
+    ): ResponseEntity<ServiceError> {
         var serviceErrorType: ServiceErrorType
         var httpStatus: HttpStatus
 
@@ -83,6 +89,32 @@ class ResponseExceptionHandler : ResponseEntityExceptionHandler() {
         return ResponseEntity(
             ServiceError(serviceErrorType, exception.localizedMessage),
             httpStatus
+        )
+    }
+
+    /**
+     * Handle missing header error
+     */
+    @ExceptionHandler(MissingRequestHeaderException::class)
+    fun handleMissingRequestHeaderException(exception: MissingRequestHeaderException): ResponseEntity<ServiceError> {
+        return ResponseEntity(
+            ServiceError(ServiceErrorType.INVALID_DATA, exception.localizedMessage),
+            HttpStatus.BAD_REQUEST
+        )
+    }
+
+    /**
+     * Handle missing body error
+     */
+    override fun handleHttpMessageNotReadable(
+        exception: HttpMessageNotReadableException,
+        headers: HttpHeaders,
+        status: HttpStatus,
+        request: WebRequest
+    ): ResponseEntity<Any> {
+        return ResponseEntity(
+            ServiceError(ServiceErrorType.INVALID_DATA, exception.localizedMessage),
+            HttpStatus.BAD_REQUEST
         )
     }
 }
