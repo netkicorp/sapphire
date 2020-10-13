@@ -1,0 +1,22 @@
+version: 0.2
+env:
+  secrets-manager:
+    DOCKER_USERNAME_PARAM: "/Codebuild/sapphire:DOCKER_USERNAME"
+    DOCKER_PASSWORD_PARAM: "/Codebuild/sapphire:DOCKER_PASSWORD"
+phases:
+  install:
+    commands:
+      - apt install -y git tar    
+  build:
+    commands:
+      - cd ..
+      - tar -czf sapphire.tar.gz --exclude='build/' --exclude='helm*' --exclude='keys*' --exclude='certs*' --exclude='docker*' --exclude='scripts*' --exclude='*.yml' --exclude='.git*' --exclude='*.go' -C src .
+      - mv sapphire.tar.gz src/
+      - cd src
+      - tar -tvf sapphire.tar.gz
+      - "cat sapphire.tar.gz | docker build . -f docker/sapphire/Dockerfile -t netkicorporate/sapphire:latest"
+      - export DOCKER_USERNAME=$DOCKER_USERNAME_PARAM
+      - export DOCKER_PASSWORD=$DOCKER_PASSWORD_PARAM
+      - echo $DOCKER_USERNAME
+      - docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
+      - docker push $IMAGE_REPO_NAME:latest
