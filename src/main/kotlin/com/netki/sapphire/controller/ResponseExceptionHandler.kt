@@ -80,6 +80,10 @@ class ResponseExceptionHandler : ResponseEntityExceptionHandler() {
                 serviceErrorType = ServiceErrorType.OBJECT_NOT_FOUND
                 httpStatus = HttpStatus.NOT_FOUND
             }
+            is EncryptionException -> {
+                serviceErrorType = ServiceErrorType.ENCRYPTION_ERROR
+                httpStatus = HttpStatus.BAD_REQUEST
+            }
             else -> {
                 serviceErrorType = ServiceErrorType.UNKNOWN
                 httpStatus = HttpStatus.INTERNAL_SERVER_ERROR

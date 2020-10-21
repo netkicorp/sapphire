@@ -1,9 +1,6 @@
 package com.netki.sapphire.controller
 
-import com.netki.sapphire.model.InvoiceRequestPayload
-import com.netki.sapphire.model.PaymentAckPayload
-import com.netki.sapphire.model.PaymentPayload
-import com.netki.sapphire.model.PaymentRequestPayload
+import com.netki.sapphire.model.*
 import com.netki.sapphire.service.Bip75Service
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.HttpStatus
@@ -25,70 +22,134 @@ class Bip75Controller {
     @PostMapping(value = ["/invoice-request"])
     fun createInvoiceRequest(
         @RequestBody invoiceRequestPayload: InvoiceRequestPayload
-    ) = ResponseEntity(bip75Service.createInvoiceRequest(invoiceRequestPayload), HttpStatus.CREATED)
+    ) = ResponseEntity(
+        bip75Service.createInvoiceRequest(invoiceRequestPayload).toProtocolMessageResponse(),
+        HttpStatus.CREATED
+    )
 
     @PostMapping(value = ["/invoice-request/validate"])
     fun isInvoiceRequestValid(
-        @RequestBody invoiceRequestBinary: ByteArray
-    ) = ResponseEntity(bip75Service.isInvoiceRequestValid(invoiceRequestBinary), HttpStatus.OK)
+        @RequestBody protocolMessage: ProtocolMessage
+    ) = ResponseEntity(
+        bip75Service.isInvoiceRequestValid(
+            protocolMessage.getProtocolMessageBytes(),
+            protocolMessage.recipientParameters
+        ), HttpStatus.OK
+    )
 
     @PostMapping(value = ["/invoice-request/parse"])
     fun parseInvoiceRequest(
-        @RequestBody invoiceRequestBinary: ByteArray
-    ) = ResponseEntity(bip75Service.parseInvoiceRequest(invoiceRequestBinary), HttpStatus.OK)
+        @RequestBody protocolMessage: ProtocolMessage
+    ) = ResponseEntity(
+        bip75Service.parseInvoiceRequest(
+            protocolMessage.getProtocolMessageBytes(),
+            protocolMessage.recipientParameters
+        ), HttpStatus.OK
+    )
 
     @PostMapping(value = ["/invoice-request/parse-with-address-info"])
     fun parseInvoiceRequestWithAddressesInfo(
-        @RequestBody invoiceRequestBinary: ByteArray
-    ) = ResponseEntity(bip75Service.parseInvoiceRequestWithAddressesInfo(invoiceRequestBinary), HttpStatus.OK)
+        @RequestBody protocolMessage: ProtocolMessage
+    ) = ResponseEntity(
+        bip75Service.parseInvoiceRequestWithAddressesInfo(
+            protocolMessage.getProtocolMessageBytes(),
+            protocolMessage.recipientParameters
+        ),
+        HttpStatus.OK
+    )
 
     @PostMapping(value = ["/payment-request"])
     fun createPaymentRequest(
         @RequestBody paymentRequestPayload: PaymentRequestPayload
-    ) = ResponseEntity(bip75Service.createPaymentRequest(paymentRequestPayload), HttpStatus.CREATED)
+    ) = ResponseEntity(
+        bip75Service.createPaymentRequest(paymentRequestPayload).toProtocolMessageResponse(),
+        HttpStatus.CREATED
+    )
 
     @PostMapping(value = ["/payment-request/validate"])
     fun isPaymentRequestValid(
-        @RequestBody paymentRequestBinary: ByteArray
-    ) = ResponseEntity(bip75Service.isPaymentRequestValid(paymentRequestBinary), HttpStatus.OK)
+        @RequestBody protocolMessage: ProtocolMessage
+    ) = ResponseEntity(
+        bip75Service.isPaymentRequestValid(
+            protocolMessage.getProtocolMessageBytes(),
+            protocolMessage.recipientParameters
+        ), HttpStatus.OK
+    )
 
     @PostMapping(value = ["/payment-request/parse"])
     fun parsePaymentRequest(
-        @RequestBody paymentRequestBinary: ByteArray
-    ) = ResponseEntity(bip75Service.parsePaymentRequest(paymentRequestBinary), HttpStatus.OK)
+        @RequestBody protocolMessage: ProtocolMessage
+    ) = ResponseEntity(
+        bip75Service.parsePaymentRequest(
+            protocolMessage.getProtocolMessageBytes(),
+            protocolMessage.recipientParameters
+        ), HttpStatus.OK
+    )
 
     @PostMapping(value = ["/payment-request/parse-with-address-info"])
     fun parsePaymentRequestWithAddressesInfo(
-        @RequestBody paymentRequestBinary: ByteArray
-    ) = ResponseEntity(bip75Service.parsePaymentRequestWithAddressesInfo(paymentRequestBinary), HttpStatus.OK)
+        @RequestBody protocolMessage: ProtocolMessage
+    ) = ResponseEntity(
+        bip75Service.parsePaymentRequestWithAddressesInfo(
+            protocolMessage.getProtocolMessageBytes(),
+            protocolMessage.recipientParameters
+        ),
+        HttpStatus.OK
+    )
 
     @PostMapping(value = ["/payment"])
     fun createPayment(
         @RequestBody paymentPayload: PaymentPayload
-    ) = ResponseEntity(bip75Service.createPayment(paymentPayload), HttpStatus.CREATED)
+    ) = ResponseEntity(
+        bip75Service.createPayment(paymentPayload).toProtocolMessageResponse(),
+        HttpStatus.CREATED
+    )
 
     @PostMapping(value = ["/payment/validate"])
     fun isPaymentValid(
-        @RequestBody paymentBinary: ByteArray
-    ) = ResponseEntity(bip75Service.isPaymentValid(paymentBinary), HttpStatus.OK)
+        @RequestBody protocolMessage: ProtocolMessage
+    ) = ResponseEntity(
+        bip75Service.isPaymentValid(
+            protocolMessage.getProtocolMessageBytes(),
+            protocolMessage.recipientParameters
+        ), HttpStatus.OK
+    )
 
     @PostMapping(value = ["/payment/parse"])
     fun parsePayment(
-        @RequestBody paymentBinary: ByteArray
-    ) = ResponseEntity(bip75Service.parsePayment(paymentBinary), HttpStatus.OK)
+        @RequestBody protocolMessage: ProtocolMessage
+    ) = ResponseEntity(
+        bip75Service.parsePayment(
+            protocolMessage.getProtocolMessageBytes(),
+            protocolMessage.recipientParameters
+        ), HttpStatus.OK
+    )
 
     @PostMapping(value = ["/payment-ack"])
     fun createPaymentAck(
         @RequestBody paymentAckPayload: PaymentAckPayload
-    ) = ResponseEntity(bip75Service.createPaymentAck(paymentAckPayload), HttpStatus.CREATED)
+    ) = ResponseEntity(
+        bip75Service.createPaymentAck(paymentAckPayload).toProtocolMessageResponse(),
+        HttpStatus.CREATED
+    )
 
     @PostMapping(value = ["/payment-ack/validate"])
     fun isPaymentAckValid(
-        @RequestBody paymentAckBinary: ByteArray
-    ) = ResponseEntity(bip75Service.isPaymentAckValid(paymentAckBinary), HttpStatus.OK)
+        @RequestBody protocolMessage: ProtocolMessage
+    ) = ResponseEntity(
+        bip75Service.isPaymentAckValid(
+            protocolMessage.getProtocolMessageBytes(),
+            protocolMessage.recipientParameters
+        ), HttpStatus.OK
+    )
 
     @PostMapping(value = ["/payment-ack/parse"])
     fun parsePaymentAck(
-        @RequestBody paymentAckBinary: ByteArray
-    ) = ResponseEntity(bip75Service.parsePaymentAck(paymentAckBinary), HttpStatus.OK)
+        @RequestBody protocolMessage: ProtocolMessage
+    ) = ResponseEntity(
+        bip75Service.parsePaymentAck(
+            protocolMessage.getProtocolMessageBytes(),
+            protocolMessage.recipientParameters
+        ), HttpStatus.OK
+    )
 }
