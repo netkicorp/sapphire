@@ -14,7 +14,7 @@ application {
 }
 
 group = "com.netki"
-version = "1.0.1"
+version = "0.1.0-alpha15"
 java.sourceCompatibility = JavaVersion.VERSION_11
 
 repositories {
