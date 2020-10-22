@@ -8,5 +8,6 @@ data class PaymentRequestPayload(
     val senderParameters: SenderParameters,
     val attestationsRequested: List<Attestation>,
     val paymentRequestParametersVersion: Int,
-    val messageInformation: MessageInformation = MessageInformation()
+    val messageInformation: MessageInformation = MessageInformation(),
+    val recipientParameters: RecipientParameters? = null
 )

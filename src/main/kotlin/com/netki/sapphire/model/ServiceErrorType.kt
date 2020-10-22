@@ -15,5 +15,6 @@ enum class ServiceErrorType {
     KEY_MANAGEMENT_STORE,
     OBJECT_NOT_FOUND,
     INVALID_DATA,
+    ENCRYPTION_ERROR,
     UNKNOWN
 }
