@@ -1,11 +1,7 @@
 package com.netki.sapphire.service
 
 import com.netki.TransactId
-import com.netki.model.RecipientParameters
-import com.netki.sapphire.model.InvoiceRequestPayload
-import com.netki.sapphire.model.PaymentAckPayload
-import com.netki.sapphire.model.PaymentPayload
-import com.netki.sapphire.model.PaymentRequestPayload
+import com.netki.model.*
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 
@@ -15,15 +11,8 @@ class Bip75Service {
     @Autowired
     private lateinit var tid: TransactId
 
-    fun createInvoiceRequest(invoiceRequestPayload: InvoiceRequestPayload) =
-        tid.createInvoiceRequest(
-            invoiceRequestPayload.invoiceRequestParameters,
-            invoiceRequestPayload.ownersParameters,
-            invoiceRequestPayload.senderParameters,
-            invoiceRequestPayload.attestationsRequested,
-            invoiceRequestPayload.recipientParameters,
-            invoiceRequestPayload.messageInformation
-        )
+    fun createInvoiceRequest(invoiceRequestParameters: InvoiceRequestParameters) =
+        tid.createInvoiceRequest(invoiceRequestParameters)
 
     fun isInvoiceRequestValid(
         invoiceRequestBinary: ByteArray,
@@ -40,16 +29,8 @@ class Bip75Service {
         recipientParameters: RecipientParameters? = null
     ) = tid.parseInvoiceRequestWithAddressesInfo(invoiceRequestBinary, recipientParameters)
 
-    fun createPaymentRequest(paymentRequestPayload: PaymentRequestPayload) =
-        tid.createPaymentRequest(
-            paymentRequestPayload.paymentRequestParameters,
-            paymentRequestPayload.ownersParameters,
-            paymentRequestPayload.senderParameters,
-            paymentRequestPayload.attestationsRequested,
-            paymentRequestPayload.paymentRequestParametersVersion,
-            paymentRequestPayload.messageInformation,
-            paymentRequestPayload.recipientParameters
-        )
+    fun createPaymentRequest(paymentRequestParameters: PaymentRequestParameters) =
+        tid.createPaymentRequest(paymentRequestParameters)
 
     fun isPaymentRequestValid(
         paymentRequestBinary: ByteArray,
@@ -66,13 +47,7 @@ class Bip75Service {
         recipientParameters: RecipientParameters? = null
     ) = tid.parsePaymentRequestWithAddressesInfo(paymentRequestBinary, recipientParameters)
 
-    fun createPayment(paymentPayload: PaymentPayload) = tid.createPayment(
-        paymentPayload.paymentParameters,
-        paymentPayload.ownersParameters,
-        paymentPayload.messageInformation,
-        paymentPayload.senderParameters,
-        paymentPayload.recipientParameters
-    )
+    fun createPayment(paymentParameters: PaymentParameters) = tid.createPayment(paymentParameters)
 
     fun isPaymentValid(
         paymentBinary: ByteArray,
@@ -84,13 +59,8 @@ class Bip75Service {
         recipientParameters: RecipientParameters? = null
     ) = tid.parsePayment(paymentBinary, recipientParameters)
 
-    fun createPaymentAck(paymentAckPayload: PaymentAckPayload) = tid.createPaymentAck(
-        paymentAckPayload.payment,
-        paymentAckPayload.memo,
-        paymentAckPayload.messageInformation,
-        paymentAckPayload.senderParameters,
-        paymentAckPayload.recipientParameters
-    )
+    fun createPaymentAck(paymentAckParameters: PaymentAckParameters) =
+        tid.createPaymentAck(paymentAckParameters)
 
     fun isPaymentAckValid(
         paymentAckBinary: ByteArray,

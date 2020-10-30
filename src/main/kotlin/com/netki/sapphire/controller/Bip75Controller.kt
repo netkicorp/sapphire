@@ -1,6 +1,12 @@
 package com.netki.sapphire.controller
 
-import com.netki.sapphire.model.*
+import com.netki.model.InvoiceRequestParameters
+import com.netki.model.PaymentAckParameters
+import com.netki.model.PaymentParameters
+import com.netki.model.PaymentRequestParameters
+import com.netki.sapphire.model.ProtocolMessage
+import com.netki.sapphire.model.getProtocolMessageBytes
+import com.netki.sapphire.model.toProtocolMessageResponse
 import com.netki.sapphire.service.Bip75Service
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.HttpStatus
@@ -8,7 +14,7 @@ import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 
 @RestController
-@RequestMapping("/api/v1/bip75")
+@RequestMapping("/api/v2/bip75")
 class Bip75Controller {
 
     @Autowired
@@ -21,9 +27,9 @@ class Bip75Controller {
 
     @PostMapping(value = ["/invoice-request"])
     fun createInvoiceRequest(
-        @RequestBody invoiceRequestPayload: InvoiceRequestPayload
+        @RequestBody invoiceRequestParameters: InvoiceRequestParameters
     ) = ResponseEntity(
-        bip75Service.createInvoiceRequest(invoiceRequestPayload).toProtocolMessageResponse(),
+        bip75Service.createInvoiceRequest(invoiceRequestParameters).toProtocolMessageResponse(),
         HttpStatus.CREATED
     )
 
@@ -60,9 +66,9 @@ class Bip75Controller {
 
     @PostMapping(value = ["/payment-request"])
     fun createPaymentRequest(
-        @RequestBody paymentRequestPayload: PaymentRequestPayload
+        @RequestBody paymentRequestParameters: PaymentRequestParameters
     ) = ResponseEntity(
-        bip75Service.createPaymentRequest(paymentRequestPayload).toProtocolMessageResponse(),
+        bip75Service.createPaymentRequest(paymentRequestParameters).toProtocolMessageResponse(),
         HttpStatus.CREATED
     )
 
@@ -99,9 +105,9 @@ class Bip75Controller {
 
     @PostMapping(value = ["/payment"])
     fun createPayment(
-        @RequestBody paymentPayload: PaymentPayload
+        @RequestBody paymentParameters: PaymentParameters
     ) = ResponseEntity(
-        bip75Service.createPayment(paymentPayload).toProtocolMessageResponse(),
+        bip75Service.createPayment(paymentParameters).toProtocolMessageResponse(),
         HttpStatus.CREATED
     )
 
@@ -127,9 +133,9 @@ class Bip75Controller {
 
     @PostMapping(value = ["/payment-ack"])
     fun createPaymentAck(
-        @RequestBody paymentAckPayload: PaymentAckPayload
+        @RequestBody paymentAckParameters: PaymentAckParameters
     ) = ResponseEntity(
-        bip75Service.createPaymentAck(paymentAckPayload).toProtocolMessageResponse(),
+        bip75Service.createPaymentAck(paymentAckParameters).toProtocolMessageResponse(),
         HttpStatus.CREATED
     )
 
