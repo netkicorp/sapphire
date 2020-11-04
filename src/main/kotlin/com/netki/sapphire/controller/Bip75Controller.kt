@@ -4,9 +4,7 @@ import com.netki.model.InvoiceRequestParameters
 import com.netki.model.PaymentAckParameters
 import com.netki.model.PaymentParameters
 import com.netki.model.PaymentRequestParameters
-import com.netki.sapphire.model.ProtocolMessage
-import com.netki.sapphire.model.getProtocolMessageBytes
-import com.netki.sapphire.model.toProtocolMessageResponse
+import com.netki.sapphire.model.*
 import com.netki.sapphire.service.Bip75Service
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.HttpStatus
@@ -158,4 +156,23 @@ class Bip75Controller {
             protocolMessage.recipientParameters
         ), HttpStatus.OK
     )
+
+    @PostMapping(value = ["/message/change-status"])
+    fun changeStatusMessageProtocol(
+        @RequestBody protocolMessage: ProtocolMessage
+    ): ResponseEntity<Any> {
+        protocolMessage.messageInformation?.let {
+            return ResponseEntity(
+                bip75Service.changeStatusMessageProtocol(
+                    protocolMessage.getProtocolMessageBytes(),
+                    it.statusCode,
+                    it.statusMessage
+                ).toProtocolMessageResponse(),
+                HttpStatus.OK
+            )
+        } ?: return ResponseEntity(
+            ServiceError(ServiceErrorType.INVALID_DATA, "Missing new status information"),
+            HttpStatus.BAD_REQUEST
+        )
+    }
 }

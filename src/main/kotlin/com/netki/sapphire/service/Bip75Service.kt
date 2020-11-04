@@ -71,4 +71,10 @@ class Bip75Service {
         paymentAckBinary: ByteArray,
         recipientParameters: RecipientParameters? = null
     ) = tid.parsePaymentAck(paymentAckBinary, recipientParameters)
+
+    fun changeStatusMessageProtocol(
+        protocolMessage: ByteArray,
+        statusCode: StatusCode,
+        statusMessage: String = ""
+    ) = tid.changeStatusMessageProtocol(protocolMessage, statusCode, statusMessage)
 }
