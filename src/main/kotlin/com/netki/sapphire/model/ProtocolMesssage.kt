@@ -1,5 +1,6 @@
 package com.netki.sapphire.model
 
+import com.netki.model.MessageInformation
 import com.netki.model.RecipientParameters
 import java.util.*
 
@@ -15,7 +16,13 @@ data class ProtocolMessage(
     /**
      * Recipient of the message parameters, these are needed when the message is encrypted.
      */
-    val recipientParameters: RecipientParameters? = null
+    val recipientParameters: RecipientParameters? = null,
+
+    /**
+     * Information related to the protocol message.
+     * Mainly used to change the status of a created protocol message.
+     */
+    val messageInformation: MessageInformation? = null
 )
 
 fun ByteArray.toProtocolMessageResponse() = ProtocolMessage(
