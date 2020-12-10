@@ -63,3 +63,6 @@ gradle-app.setting
 # Ignore default vault keys folder
 keys/
 certs/
+
+# TransactId CA cert
+src/main/resources/certificates/TransactIdCA.pem

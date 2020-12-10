@@ -175,4 +175,12 @@ class Bip75Controller {
             HttpStatus.BAD_REQUEST
         )
     }
+
+    @PostMapping(value = ["/message/metadata"])
+    fun getProtocolMessageMetadata(
+        @RequestBody protocolMessage: ProtocolMessage
+    ) = ResponseEntity(
+        bip75Service.getProtocolMessageMetadata(protocolMessage.getProtocolMessageBytes()),
+        HttpStatus.OK
+    )
 }

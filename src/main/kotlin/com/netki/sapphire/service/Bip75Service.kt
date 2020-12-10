@@ -77,4 +77,8 @@ class Bip75Service {
         statusCode: StatusCode,
         statusMessage: String = ""
     ) = tid.changeStatusMessageProtocol(protocolMessage, statusCode, statusMessage)
+
+    fun getProtocolMessageMetadata(
+        protocolMessage: ByteArray
+    ) = tid.getProtocolMessageMetadata(protocolMessage)
 }
