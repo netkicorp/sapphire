@@ -64,9 +64,9 @@ class Bip75Controller {
 
     @PostMapping(value = ["/payment-request"])
     fun createPaymentRequest(
-        @RequestBody paymentRequestParameters: PaymentRequestParameters
+        @RequestBody paymentRequestPayload: PaymentRequestPayload
     ) = ResponseEntity(
-        bip75Service.createPaymentRequest(paymentRequestParameters).toProtocolMessageResponse(),
+        bip75Service.createPaymentRequest(paymentRequestPayload).toProtocolMessageResponse(),
         HttpStatus.CREATED
     )
 
@@ -103,9 +103,9 @@ class Bip75Controller {
 
     @PostMapping(value = ["/payment"])
     fun createPayment(
-        @RequestBody paymentParameters: PaymentParameters
+        @RequestBody paymentPayload: PaymentPayload
     ) = ResponseEntity(
-        bip75Service.createPayment(paymentParameters).toProtocolMessageResponse(),
+        bip75Service.createPayment(paymentPayload).toProtocolMessageResponse(),
         HttpStatus.CREATED
     )
 
@@ -131,9 +131,9 @@ class Bip75Controller {
 
     @PostMapping(value = ["/payment-ack"])
     fun createPaymentAck(
-        @RequestBody paymentAckParameters: PaymentAckParameters
+        @RequestBody paymentAckPayload: PaymentAckPayload
     ) = ResponseEntity(
-        bip75Service.createPaymentAck(paymentAckParameters).toProtocolMessageResponse(),
+        bip75Service.createPaymentAck(paymentAckPayload).toProtocolMessageResponse(),
         HttpStatus.CREATED
     )
 
