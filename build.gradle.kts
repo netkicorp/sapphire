@@ -14,7 +14,7 @@ application {
 }
 
 group = "com.netki"
-version = "1.0.0-beta1"
+version = "1.0.0-beta2"
 java.sourceCompatibility = JavaVersion.VERSION_11
 
 repositories {
@@ -24,7 +24,7 @@ repositories {
 }
 
 dependencies {
-    implementation("com.netki:transactid:1.0.0-beta4")
+    implementation("com.netki:transactid:1.0.0-beta5")
 
     implementation("org.springframework.boot:spring-boot-starter-jersey")
     implementation("org.springframework.boot:spring-boot-starter-web")
