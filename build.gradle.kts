@@ -4,7 +4,7 @@ plugins {
     id("org.springframework.boot") version "2.3.2.RELEASE"
     id("io.spring.dependency-management") version "1.0.9.RELEASE"
     war
-    kotlin("jvm") version "1.3.72"
+    kotlin("jvm") version "1.4.30"
     kotlin("plugin.spring") version "1.3.72"
     id("application")
 }
@@ -14,8 +14,7 @@ application {
 }
 
 group = "com.netki"
-version = "1.0.0-beta5"
-java.sourceCompatibility = JavaVersion.VERSION_11
+version = "2.0.0-beta1"
 
 repositories {
     mavenLocal()
@@ -24,7 +23,8 @@ repositories {
 }
 
 dependencies {
-    implementation("com.netki:transactid:1.0.0-beta5")
+    implementation("com.netki:transactid-core:2.0.0-beta1")
+    implementation("com.netki:transactid:2.0.0-beta1")
 
     implementation("org.springframework.boot:spring-boot-starter-jersey")
     implementation("org.springframework.boot:spring-boot-starter-web")
@@ -50,6 +50,6 @@ tasks.withType<Test> {
 tasks.withType<KotlinCompile> {
     kotlinOptions {
         freeCompilerArgs = listOf("-Xjsr305=strict")
-        jvmTarget = "11"
+        jvmTarget = "13"
     }
 }
