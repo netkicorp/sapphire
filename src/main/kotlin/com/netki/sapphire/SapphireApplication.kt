@@ -32,7 +32,7 @@ class SapphireApplication {
     private lateinit var keyManagementStorageAddress: String
 
     @Bean
-    fun getTransactId() = TransactId.getInstance(trustStoreLocation, addressProviderAuthorizationKey, true)
+    fun getTransactId() = TransactId.getInstance(trustStoreLocation, addressProviderAuthorizationKey)
 
     @Bean
     fun getTidAddressInfo() = TidAddressInfo.getInstance(addressProviderAuthorizationKey)
