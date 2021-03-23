@@ -15,6 +15,7 @@ application {
 
 group = "com.netki"
 version = "2.0.0-beta1"
+java.sourceCompatibility = JavaVersion.VERSION_11
 
 repositories {
     mavenLocal()
@@ -50,6 +51,6 @@ tasks.withType<Test> {
 tasks.withType<KotlinCompile> {
     kotlinOptions {
         freeCompilerArgs = listOf("-Xjsr305=strict")
-        jvmTarget = "13"
+        jvmTarget = "11"
     }
 }
