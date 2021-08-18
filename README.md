@@ -6,18 +6,6 @@ Make sure that you have installed in your machine
 - Java 13
 - Gradle
 
-## Standard Setup (Recommended)
-
-There is an install helper at the project root.
-
-```#!/bin/bash
-./setup
-```
-
-You will be prompted to enter details to set runtime configuration and guided through various setup methods we have available.
-
----
-
 ## Advanced without Docker
 
 To run project directly, _configure the required environment variables_ and then run the project using gradle.
