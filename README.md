@@ -6,7 +6,7 @@ Make sure that you have installed in your machine
 - Java 13
 - Gradle
 
-## Advanced without Docker
+## Configuration
 
 To run project directly, _configure the required environment variables_ and then run the project using gradle.
 
